@@ -1,25 +1,31 @@
-// 10437372 - Felipe Bertacco Haddad
-// https://www.w3schools.com/java/java_strings.asp
-// Gemini: Tem como eu remover espaços de uma string em java?
-
-import java.util.Scanner;
-
-public class Main {
-    public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
-    String texto = "";
-    for (int i = 1; i <= 2; i++) {
-        System.out.print("\nPara sair do programa, digite /sair\nInforme um texto: ");
-        texto = scanner.nextLine();
-        if (texto.equals("/sair")) {
-            System.out.print("Você saiu do programa");
-            break;
-        } else {
-            Palindromo teste = new Palindromo(texto);
-            System.out.print(teste.verificar(texto));
-            i--;
-        }
+public class Palindromo {
+    private String texto;
+    public Palindromo () {
+        texto = "";
     }
-    scanner.close();
+    public Palindromo(String texto) {
+        setTexto(texto);
+    }
+    public String getTexto () {
+        return texto;
+    }
+    public void setTexto (String texto) {
+        if (texto == null){
+            System.out.println("Não é permitido passar null como valor!");
+        } else {
+            this.texto = texto; }
+    }
+    public boolean verificar(String texto) {
+        if(texto.length() <= 1) return true;
+
+        String aux = texto.toLowerCase();
+        aux = aux.replaceAll("\\s+","");
+
+        for(int i = 0; i < aux.length()/2; i++) {
+            int pos2 = (aux.length() - 1) - i;
+            if (aux.charAt(i) != aux.charAt(pos2)) return false;
+        }
+        return true;
+
     }
 }
